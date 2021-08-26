@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option go_package = "./frames";
+
+
+
+message Frame {
+    int32       fid         = 1;
+    int64       timestamp   = 2;
+    int32       pid         = 3;
+	OPERATOR    opt         = 4;
+    DIRCTION   dir         = 5;
+}
+
+message S2CFrame{
+	int32      fid       = 1;
+	int64      timestamp = 2;
+	int32      pid       = 3;
+	OPERATOR   opt       = 4;
+	DIRCTION   dir       = 5;
+}
+
+enum OPERATOR{
+    NONE = 0;
+    WALK = 1;
+}
+
+enum DIRCTION{
+    UP      =  0;
+    DOWN    =  1;
+    LEFT    =  2;
+    RIGHT   =  3;
+}

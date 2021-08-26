@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option go_package = "./msgerr";
+
+message Error {
+	ERROR_CODE err = 1;
+}
+
+enum ERROR_CODE{
+	PLAYER_LOGIN_ERROR     = 0;
+	PLATER_JOIN_ROOM_ERROR = 1;
+}
+

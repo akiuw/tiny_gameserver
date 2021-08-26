@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "./actions";
+
+message C2SPlayerAction{
+	int32  Pid    = 1;
+	ACTION action = 2;	
+}
+
+message S2CPlayerActionAck{
+	int32	   Pid = 1;	
+	ACTION_ACK ack = 2;
+}
+
+message S2CJoinRoomAck{
+	int32		 Rid = 1;
+	JOINROOM_ACK ack = 2;
+}
+enum ACTION{
+	NOACTION		= 0;
+	LOGIN			= 1;
+	LOGOUT			= 2;
+	RECONNECTION	= 3;
+	JOINROOM        = 4;
+}
+
+enum ACTION_ACK{
+	LOGIN_SUCCESS	= 0;
+	LOGOUT_SUCCESS  = 1;
+}
+
+enum JOINROOM_ACK{
+	JOINROOM_SUCCESS = 0;
+}
