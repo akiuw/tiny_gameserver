@@ -56,12 +56,12 @@ func (gs *GameServer) RegisterProtocol(h ihandles.IHandles) {
 	pb.RegistProtocol(pb.FRAMES, h.GetHandle(pb.FRAMES))
 }
 
-//添加游戏object(实现update的对象)每帧都会调用
+// AddLogic 添加游戏object(实现update的对象)每帧都会调用
 func (gs *GameServer) AddLogic(g ilogic.IGameLoop) {
 	gs.l = append(gs.l, g)
 }
 
-//设置服务器的帧间隔时间(整数)
+// SetTimer 设置服务器的帧间隔时间(整数)
 func (gs *GameServer) SetTimer(t time.Duration) {
 	gs.tick = t
 }
@@ -80,7 +80,7 @@ func (gs *GameServer) Tick() (delay time.Duration, action gnet.Action) {
 	return
 }
 
-//拆包发放带各个模块
+// React 拆包发放带各个模块
 func (gs *GameServer) React(data []byte, c gnet.Conn) (out []byte, action gnet.Action) {
 	fmt.Println(data)
 	lenth := 0
@@ -114,7 +114,7 @@ func (gs *GameServer) React(data []byte, c gnet.Conn) (out []byte, action gnet.A
 	return
 }
 
-//得到协议头
+// GetMessageHeader 得到协议头
 func GetMessageHeader(data []byte) (messageheader *pb.MessageHeader, err error) {
 
 	messageheader = (*pb.MessageHeader)(unsafe.Pointer(&data[0]))

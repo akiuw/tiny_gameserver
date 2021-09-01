@@ -1,0 +1,8 @@
+{
+  "listen_port": 9000,
+  "protocol": "tcp",
+  "room_max_player": 2,
+  "redis_addr": "localhost:6379",
+  "redis_password": "",
+  "log_path": "./logs"
+}
