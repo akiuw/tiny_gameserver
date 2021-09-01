@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	. "gameserver/configures"
 	"gameserver/handles"
 	"gameserver/network"
 	. "gameserver/serverlog"
-	"gameserver/utils"
 	"log"
 	"os"
 	"time"
@@ -20,9 +20,9 @@ var Rdb *redis.Client
 func init() {
 
 	Rdb = redis.NewClient(&redis.Options{
-		Addr:     utils.GServerConfig.RedisAddr,
-		Password: utils.GServerConfig.RedisPassword, // no password set
-		DB:       0,  // use default DB
+		Addr:     GServerConfig.RedisAddr,
+		Password: GServerConfig.RedisPassword, // no password set
+		DB:       0,                           // use default DB
 	})
 
 	_, err := Rdb.Ping().Result()
@@ -41,14 +41,9 @@ func StartGame() {
 	gs.SetTimer(time.Microsecond * 10)
 	gs.PoolInit(goroutine.Default())
 	gs.RegisterProtocol(handles.GetInstance())
-	err := LogFileInit()
-	if err != nil{
-		Error.Println("server log file init failed!",err)
-		os.Exit(0)
-	}
 
 	Info.Println("server init ok")
 
-	log.Fatal(gnet.Serve(gs, fmt.Sprintf("%s://:%d",utils.GServerConfig.Protocol,utils.GServerConfig.ListenPort),
+	log.Fatal(gnet.Serve(gs, fmt.Sprintf("%s://:%d", GServerConfig.Protocol, GServerConfig.ListenPort),
 		gnet.WithMulticore(true), gnet.WithTicker(true)))
 }
